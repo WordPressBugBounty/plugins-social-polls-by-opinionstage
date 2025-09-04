@@ -15,6 +15,12 @@ class Admin {
 
     use Module;
 
+    private static $allowed_templates = [
+        'getting_started',
+        'settings',
+        'help_resource'
+    ];
+
     public function init() {
         // login callbacks
         add_action( 'admin_menu', [ $this, 'register_login_callback_page' ] );
@@ -223,14 +229,13 @@ class Admin {
                     Opinionstage::get_instance()->plugin_url . 'admin/images/os-icon.svg',
                     '25.234323221'
                 );
-                add_submenu_page( OPINIONSTAGE_GETTING_STARTED_SLUG, 'Get Started', 'Get Started', 'edit_posts', OPINIONSTAGE_GETTING_STARTED_SLUG, [ $this, 'load_template' ] );
             }
         }
     }
 
     public static function load_template() {
 
-        $view_file_name = self::prepare_view_file_name_form_current_page();
+        $view_file_name = self::prepare_view_file_name_from_current_page();
         if ( !$view_file_name ) {
             return;
         }
@@ -241,18 +246,32 @@ class Admin {
         TemplatesViewer::require_template( 'admin/views/' . $view_file_name, compact( 'os_client_logged_in', 'os_options' ) );
     }
 
-    private static function prepare_view_file_name_form_current_page() {
-        $view_file_name = '';
+    private static function prepare_view_file_name_from_current_page() {
 
-        if ( !empty( $_REQUEST['page'] ) ) {
-            $qry_str_check_os = sanitize_text_field( $_REQUEST['page'] );
-            $qry_str_check_os = explode( '-', $qry_str_check_os );
-            if ( 'opinionstage' === $qry_str_check_os[0] ) {
-                $view_file_name = str_replace( 'opinionstage-', '', sanitize_text_field( $_REQUEST['page'] ) );
-                $view_file_name = str_replace( '-', '_', $view_file_name );
-            }
+        if (empty($_REQUEST['page']) || !is_string($_REQUEST['page'])) {
+            return '';
         }
 
-        return $view_file_name;
+        $page = sanitize_text_field($_REQUEST['page']);
+
+        if (substr($page, 0, strlen('opinionstage-')) !== 'opinionstage-') {
+            return '';
+        }
+
+        $template_name = substr($page, strlen('opinionstage-'));
+
+        $template_name = str_replace('-', '_', $template_name);
+
+        if (!in_array($template_name, self::$allowed_templates, true)) {
+            return '';
+        }
+
+        if (strpos($template_name, '..') !== false ||
+            strpos($template_name, '/') !== false ||
+            strpos($template_name, '\\') !== false) {
+            return '';
+        }
+
+        return $template_name;
     }
 }
