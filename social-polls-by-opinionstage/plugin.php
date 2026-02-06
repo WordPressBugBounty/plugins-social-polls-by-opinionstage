@@ -8,7 +8,7 @@
  * Plugin Name: Poll, Survey & Quiz Maker Plugin by Opinion Stage
  * Plugin URI:  https://www.opinionstage.com
  * Description: Add a highly engaging poll, survey, quiz or contact form builder to your site. You can add the poll, survey, quiz or form to any post/page or to the sidebar.
- * Version:     19.11.1
+ * Version:     19.12.2
  * Author:      OpinionStage.com
  * Author URI:  https://www.opinionstage.com
  * Text Domain: social-polls-by-opinionstage
@@ -38,7 +38,7 @@ if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
 	}
 }
 
-define( 'OPINIONSTAGE_WIDGET_VERSION', '19.11.1' );
+define( 'OPINIONSTAGE_WIDGET_VERSION', '19.12.2' );
 
 define( 'OPINIONSTAGE_WIDGET_API_KEY', 'wp35e8' );
 define( 'OPINIONSTAGE_UTM_SOURCE', 'wordpress' );
@@ -58,7 +58,6 @@ define( 'OPINIONSTAGE_SERVER_BASE', isset( $opinionstage_settings['server_base']
 define( 'OPINIONSTAGE_API_PATH', OPINIONSTAGE_SERVER_BASE . '/api/v1' );
 define( 'OPINIONSTAGE_LOGIN_PATH', OPINIONSTAGE_SERVER_BASE . '/api/wp/v1/auth/new' );
 define( 'OPINIONSTAGE_CONTENT_POPUP_CLIENT_WIDGETS_API', OPINIONSTAGE_SERVER_BASE . '/api/wp/v1/my/widgets' );
-define( 'OPINIONSTAGE_CONTENT_POPUP_CLIENT_WIDGETS_API_RECENT_UPDATE', OPINIONSTAGE_SERVER_BASE . '/api/wp/v1/my/widgets/recent-update' );
 
 define(
 	'OPINIONSTAGE_REDIRECT_TEMPLATES_API_UTM',
