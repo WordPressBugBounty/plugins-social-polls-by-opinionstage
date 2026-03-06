@@ -8,7 +8,7 @@
  * Plugin Name: Poll, Survey & Quiz Maker Plugin by Opinion Stage
  * Plugin URI:  https://www.opinionstage.com
  * Description: Add a highly engaging poll, survey, quiz or contact form builder to your site. You can add the poll, survey, quiz or form to any post/page or to the sidebar.
- * Version:     19.12.2
+ * Version:     19.12.3
  * Author:      OpinionStage.com
  * Author URI:  https://www.opinionstage.com
  * Text Domain: social-polls-by-opinionstage
@@ -38,7 +38,7 @@ if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
 	}
 }
 
-define( 'OPINIONSTAGE_WIDGET_VERSION', '19.12.2' );
+define( 'OPINIONSTAGE_WIDGET_VERSION', '19.12.3' );
 
 define( 'OPINIONSTAGE_WIDGET_API_KEY', 'wp35e8' );
 define( 'OPINIONSTAGE_UTM_SOURCE', 'wordpress' );
@@ -67,9 +67,16 @@ define(
 	)
 );
 define(
-	'OPINIONSTAGE_REDIRECT_CREATE_WIDGET_API_UTM',
+	'OPINIONSTAGE_REDIRECT_WORKSPACE_API_UTM',
 	add_query_arg(
 		OPINIONSTAGE_UTM_PARAMETERS,
+		OPINIONSTAGE_SERVER_BASE . '/api/wp/redirects/widgets/new'
+	)
+);
+define(
+	'OPINIONSTAGE_REDIRECT_CREATE_API_UTM',
+	add_query_arg(
+		array_merge(OPINIONSTAGE_UTM_PARAMETERS, ['page_type' => 'create']),
 		OPINIONSTAGE_SERVER_BASE . '/api/wp/redirects/widgets/new'
 	)
 );
@@ -80,7 +87,6 @@ define( 'OPINIONSTAGE_OPTIONS_KEY', 'opinionstage_widget' );
 
 define( 'OPINIONSTAGE_MENU_SLUG', 'opinionstage-settings' );
 define( 'OPINIONSTAGE_GETTING_STARTED_SLUG', 'opinionstage-getting-started' );
-define( 'OPINIONSTAGE_HELP_RESOURCE_SLUG', 'opinionstage-help-resource' );
 
 define( 'OPINIONSTAGE_LOGIN_CALLBACK_SLUG', 'opinionstage-login-callback' );
 define( 'OPINIONSTAGE_DISCONNECT_PAGE', 'opinionstage-disconnect-page' );
